@@ -20,6 +20,7 @@ class GitCommand {
             this.staging.push(modified_files[path_file]);
             delete modified_files[path_file];
         }
+
         else if(path_file == "*"){
             let file_list = Object.keys(modified_files);
 
@@ -29,6 +30,10 @@ class GitCommand {
                     delete this.working_directory.new_changes[file_list[row]]; 
                 }
             }
+        }
+        else if(path_file == "."){
+            this.staging.push(modified_files);
+            this.working_directory.new_changes = {};
         }
         else{
             return `Failed to add ${path_file}! File is not modified or missing.`;
